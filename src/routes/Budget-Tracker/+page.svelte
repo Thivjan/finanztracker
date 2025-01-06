@@ -32,19 +32,17 @@
 
     // Ruft Transaktionen vom Server ab.
     async function ladeTransaktionen() {
-        try {
-            const response = await fetch('/api/savetransactions'); // API-Aufruf.
-            const result = await response.json();
-            if (result.success) {
-                transaktionen = result.transactions; // Aktualisiere Transaktionen.
-                updateSummen(); // Summen berechnen.
-            } else {
-                alert('Fehler beim Laden der Transaktionen.');
-            }
-        } catch (error) {
-            console.error('Fehler beim Laden:', error);
-        }
+    const response = await fetch('/api/savetransactions');
+    const result = await response.json();
+
+    if (result.success) {
+        transaktionen = result.transactions;
+        updateSummen();
+    } else {
+        alert('Fehler beim Laden der Transaktionen.');
     }
+}
+
 
     // Fügt eine neue Transaktion hinzu.
     async function transaktionHinzufügen(event) {

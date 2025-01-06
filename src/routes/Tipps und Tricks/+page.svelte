@@ -12,24 +12,19 @@
 
   // Funktion zum Abrufen von Bitcoin-Daten aus der API.
   async function fetchBitcoinData() {
-    try {
-      const response = await fetch(
-        "https://api.blockchain.info/charts/market-price?timespan=30days&format=json&cors=true"
-      );
-      if (!response.ok) {
-        throw new Error("Fehler beim Abrufen der Bitcoin-Daten");
-      }
-      const data = await response.json(); // JSON-Daten von der API extrahieren.
-      // Formatiert die Daten in ein benutzerfreundliches Format.
-      bitcoinData = data.values.map((item) => ({
-        date: new Date(item.x * 1000).toLocaleDateString(), // Konvertiert Unix-Timestamp in lesbares Datum.
-        value: item.y, // Bitcoin-Preis.
-      }));
-      renderBitcoinChart(); // Rendert das Diagramm mit den abgerufenen Daten.
-    } catch (error) {
-      console.error("Fehler beim Abrufen der Bitcoin-Daten:", error);
-    }
-  }
+    const url = "https://api.blockchain.info/charts/market-price?timespan=30days&format=json&cors=true";
+
+    const response = await fetch(url);
+    const { values } = await response.json();
+
+    bitcoinData = values.map((item) => ({
+        date: new Date(item.x * 1000).toLocaleDateString(),
+        value: item.y,
+    }));
+
+    renderBitcoinChart();
+}
+
 
   // Erstellt und rendert ein Bitcoin-Diagramm.
   function renderBitcoinChart() {
