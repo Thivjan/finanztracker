@@ -1,29 +1,29 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-    export let transaktionen = [];
-    const dispatch = createEventDispatcher();
+    import { createEventDispatcher } from 'svelte'; // Dispatcher für Ereignisse erstellen.
+    export let transaktionen = []; // Liste der Transaktionen exportieren.
+    const dispatch = createEventDispatcher(); // Dispatcher initialisieren.
 
     function loescheEinzeln(id) {
-        dispatch('loeschenEinzeln', id);
+        dispatch('loeschenEinzeln', id); // Einzelne Transaktion löschen.
     }
 
     async function speichereTransaktionen() {
         try {
             const response = await fetch('/api/savetransactions', {
-                method: 'POST',
+                method: 'POST', // Daten per POST senden.
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(transaktionen),
+                body: JSON.stringify(transaktionen), // Transaktionen als JSON senden.
             });
 
             const result = await response.json();
             if (result.success) {
-                alert('Transaktionen erfolgreich gespeichert!');
+                alert('Transaktionen erfolgreich gespeichert!'); // Erfolgsmeldung.
             } else {
-                alert(result.error || 'Fehler beim Speichern der Transaktionen.');
+                alert(result.error || 'Fehler beim Speichern der Transaktionen.'); // Fehlermeldung.
             }
         } catch (error) {
-            console.error('Fehler beim Speichern:', error);
-            alert('Serverfehler beim Speichern.');
+            console.error('Fehler beim Speichern:', error); // Fehler in Konsole loggen.
+            alert('Serverfehler beim Speichern.'); // Serverfehler melden.
         }
     }
 </script>
@@ -33,6 +33,7 @@
     <table>
         <thead>
             <tr>
+                <!-- Tabellenkopf mit Spaltenüberschriften -->
                 <th>Betrag</th>
                 <th>Kategorie</th>
                 <th>Typ</th>
@@ -42,52 +43,54 @@
         </thead>
         <tbody>
             {#if transaktionen.length > 0}
+                <!-- Iteration über Transaktionen -->
                 {#each transaktionen as t}
                     <tr>
-                        <td>{t.betrag.toFixed(2)} CHF</td>
-                        <td>{t.kategorie}</td>
-                        <td>{t.typ}</td>
-                        <td>{t.datum}</td>
+                        <td>{t.betrag.toFixed(2)} CHF</td> <!-- Betrag anzeigen -->
+                        <td>{t.kategorie}</td> <!-- Kategorie anzeigen -->
+                        <td>{t.typ}</td> <!-- Typ anzeigen -->
+                        <td>{t.datum}</td> <!-- Datum anzeigen -->
                         <td>
+                            <!-- Button zum Löschen -->
                             <button onclick={() => loescheEinzeln(t._id)}>Löschen</button>
                         </td>
                     </tr>
                 {/each}
             {:else}
+                <!-- Nachricht, wenn keine Transaktionen -->
                 <tr>
                     <td colspan="5">Keine Transaktionen vorhanden</td>
                 </tr>
             {/if}
         </tbody>
     </table>
-    </section>
+</section>
 
 <style>
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    width: 100%; /* Tabelle über gesamte Breite */
+    border-collapse: collapse; /* Rahmen zusammenfassen */
+    margin-bottom: 20px; /* Abstand nach unten */
 }
 
 th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid; /* Die Rahmenfarbe könnte durch eine spezifische Farbe ersetzt werden */
+    padding: 10px; /* Innenabstand */
+    text-align: center; /* Zentrierter Text */
+    border: 1px solid; /* Tabellenrahmen */
 }
 
 button {
-    background: rgb(212, 143, 117);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s; /* Sanfter Übergang hinzugefügt */
+    background: rgb(212, 143, 117); /* Button-Hintergrund */
+    color: #fff; /* Button-Textfarbe */
+    border: none; /* Kein Rahmen */
+    padding: 10px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    cursor: pointer; /* Zeiger auf Hand ändern */
+    transition: transform 0.3s; /* Hover-Übergang */
 }
 
 button:hover {
-    background: #e76f51;
-    transform: scale(1.05);
+    background: #e76f51; /* Hover-Farbe */
+    transform: scale(1.05); /* Leichte Vergrößerung */
 }
-
 </style>

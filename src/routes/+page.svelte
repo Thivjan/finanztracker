@@ -22,41 +22,40 @@
 </section>
 
 <style>
+header {
+    text-align: center; /* Zentriert den Inhalt */
+    color: #ffcc70; /* Akzentfarbe */
+}
 
-    
-    header {
-        text-align: center;
-        color: #ffcc70;
-    }
+.intro {
+    margin-top: 40px; /* Abstand nach oben */
+    padding: 20px; /* Innenabstand */
+    background: rgba(255, 255, 255, 0.1); /* Transparenter Hintergrund */
+    border-radius: 10px; /* Abgerundete Ecken */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Schatten für Tiefe */
+}
 
-    .intro {
-        margin-top: 40px;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
+.features-list {
+    margin-top: 20px; /* Abstand nach oben */
+    padding: 0; /* Kein Innenabstand */
+    list-style: none; /* Entfernt Standard-Aufzählungszeichen */
+}
 
-    .features-list {
-        margin-top: 20px;
-        padding: 0;
-        list-style: none;
-    }
+.features-list li {
+    margin-bottom: 10px; /* Abstand zwischen Listenelementen */
+}
 
-    .features-list li {
-        margin-bottom: 10px;
-    }
+.features-list li::before {
+    content: "✔️"; /* Checkmark vor jedem Element */
+    color: #ffcc70; /* Akzentfarbe */
+    font-size: 18px; /* Schriftgröße */
+}
 
-    .features-list li::before {
-        content: "✔️";
-        color: #ffcc70;
-        font-size: 18px;
-    }
+p {
+    text-align: center; /* Zentriert den Text */
+    margin-top: 20px; /* Abstand nach oben */
+    font-weight: bold; /* Fettgedruckt */
+    color: #ffcc70; /* Akzentfarbe */
+}
 
-    p {
-        text-align: center;
-        margin-top: 20px;
-        font-weight: bold;
-        color: #ffcc70;
-    }
 </style>

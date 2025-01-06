@@ -1,15 +1,15 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from 'svelte'; // Ereignis-Dispatcher erstellen.
 
-    export let betrag = '';
-    export let kategorie = '';
-    export let typ = 'Einnahme';
-    export let datum = '';
+    export let betrag = ''; // Betrag initialisieren.
+    export let kategorie = ''; // Kategorie initialisieren.
+    export let typ = 'Einnahme'; // Typ mit Standardwert initialisieren.
+    export let datum = ''; // Datum initialisieren.
 
-    const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher(); // Dispatcher-Funktion erstellen.
 
     function handleSubmit(event) {
-        event.preventDefault();
+        event.preventDefault(); // Standard-Formularaktion verhindern.
         if (!betrag || isNaN(parseFloat(betrag))) {
             alert('Bitte geben Sie einen gültigen Betrag ein.');
             return;
@@ -23,10 +23,10 @@
             return;
         }
 
-        const eventData = { betrag: parseFloat(betrag), kategorie, typ, datum };
-        dispatch('hinzufuegen', eventData);
+        const eventData = { betrag: parseFloat(betrag), kategorie, typ, datum }; // Event-Daten sammeln.
+        dispatch('hinzufuegen', eventData); // Custom-Event mit Daten auslösen.
 
-        // Formular zurücksetzen
+        // Formularwerte zurücksetzen.
         betrag = '';
         kategorie = '';
         typ = 'Einnahme';
@@ -39,38 +39,36 @@
     <form onsubmit={handleSubmit}>
         <div>
             <label for="betrag">Betrag</label>
-            <input id="betrag" type="number" bind:value={betrag} required />
+            <input id="betrag" type="number" bind:value={betrag} required /> <!-- Betrag binden. -->
         </div>
         <div>
             <label for="kategorie">Kategorie</label>
-            <input id="kategorie" type="text" bind:value={kategorie} required />
+            <input id="kategorie" type="text" bind:value={kategorie} required /> <!-- Kategorie binden. -->
         </div>
         <div>
             <label for="typ">Typ</label>
-            <select id="typ" bind:value={typ}>
+            <select id="typ" bind:value={typ}> <!-- Typ auswählen. -->
                 <option value="Einnahme">Einnahme</option>
                 <option value="Ausgabe">Ausgabe</option>
             </select>
         </div>
         <div>
             <label for="datum">Datum</label>
-            <input id="datum" type="date" bind:value={datum} required />
+            <input id="datum" type="date" bind:value={datum} required /> <!-- Datum binden. -->
         </div>
-        <button type="submit">Hinzufügen</button>
+        <button type="submit">Hinzufügen</button> <!-- Button zum Absenden. -->
     </form>
 </section>
 
 <style>
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Abstände zwischen den Feldern */
+    display: flex; /* Flexibles Layout für das Formular. */
+    flex-direction: column; /* Felder vertikal anordnen. */
+    gap: 10px; /* Abstände zwischen den Feldern. */
 }
 
 input, select {
-    font-size: 14px; /* Einheitliche Schriftgröße */
-    color: #203a43; /* Konsistente Schriftfarbe */
+    font-size: 14px; /* Einheitliche Schriftgröße. */
+    color: #203a43; /* Konsistente Schriftfarbe. */
 }
-
 </style>
-    

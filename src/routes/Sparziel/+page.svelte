@@ -1,18 +1,21 @@
 <script>
-    let {data} = $props(); // Daten vom Server
+    // Empfängt Daten vom Server, die als Prop übergeben werden.
+    let {data} = $props(); 
 
-    let savingGoals = data?.savingGoals || []; // Sicherstellen, dass die Daten korrekt initialisiert sind
-    let editGoal = $state(); // Aktuelles Ziel, das bearbeitet wird
+    // Initialisiert die Sparziele und die Variable für das aktuell bearbeitete Sparziel.
+    let savingGoals = data?.savingGoals; 
+    let editGoal = $state(); // Bearbeitungsmodus für ein Ziel.
 
-    // Debugging, um sicherzustellen, dass die Daten geladen werden
+    // Debugging-Ausgabe, um die geladenen Sparziele zu überprüfen.
     console.log("DEBUG: Sparziele geladen:", savingGoals);
 </script>
 
 <div class="container">
     <h1>Sparziele</h1>
 
-    <!-- Überprüfen, ob Sparziele vorhanden sind -->
+    <!-- Überprüft, ob Sparziele vorhanden sind. -->
     {#if savingGoals && savingGoals.length > 0}
+        <!-- Tabelle zur Darstellung der Sparziele. -->
         <table class="sparziel-table">
             <thead>
                 <tr>
@@ -33,10 +36,12 @@
                         <td>{(ziel.zielBetrag - ziel.aktuellerBetrag).toFixed(2)} CHF</td>
                         <td>{ziel.endDatum || "Kein Datum"}</td>
                         <td>
+                            <!-- Formular zum Löschen eines Ziels. -->
                             <form method="POST" action="?/delete" class="delete-form">
                                 <input type="hidden" name="id" value={ziel._id} />
                                 <button type="submit" class="delete-button">Löschen</button>
                             </form>
+                            <!-- Button, um ein Ziel zu bearbeiten. -->
                             <button onclick={() => editGoal = ziel}>Bearbeiten</button>
                         </td>
                     </tr>
@@ -44,10 +49,11 @@
             </tbody>
         </table>
     {:else}
+        <!-- Nachricht, wenn keine Sparziele vorhanden sind. -->
         <p>Keine Sparziele vorhanden.</p>
     {/if}
 
-    <!-- Bearbeitungsformular -->
+    <!-- Bearbeitungsformular, wenn ein Ziel ausgewählt wurde. -->
     {#if editGoal}
         <h1>Sparziel bearbeiten</h1>
         <form method="POST" action="?/update">
@@ -68,7 +74,7 @@
         </form>
     {/if}
 
-    <!-- Hinzufügen eines neuen Sparziels -->
+    <!-- Formular zum Hinzufügen eines neuen Sparziels. -->
     <h1>Neues Sparziel hinzufügen</h1>
     <form class="sparziel-form" method="POST" action="?/add">
         <label for="new-name">Name:</label>
@@ -86,23 +92,26 @@
         <button type="submit">Hinzufügen</button>
     </form>
 
-    <!-- Alle Sparziele löschen -->
+    <!-- Formular zum Löschen aller Sparziele. -->
     <form method="POST" action="?/deleteAll" class="delete-all">
         <button type="submit" class="delete-all-button">Alle löschen</button>
     </form>
 </div>
 
 <style>
+    /* Zentrierte Nachricht. */
     p {
         text-align: center;
     }
 
+    /* Allgemeine Container-Einstellungen. */
     .container {
         max-width: 900px;
         margin: auto;
         padding: 20px;
     }
 
+    /* Tabellenstil für die Sparziele. */
     .sparziel-table {
         width: 100%;
         border-collapse: collapse;
@@ -110,25 +119,30 @@
         text-align: center;
     }
 
+    /* Zellenabstand und Rahmenfarbe. */
     th, td {
         padding: 10px;
         border: 1px solid #ddd;
     }
 
+    /* Tabellenkopf-Hintergrundfarbe. */
     th {
         background-color: rgb(212, 143, 117);
         color: white;
     }
 
+    /* Stil für Buttons. */
     button {
         width: 120px;
         height: 40px;
     }
 
+    /* Hover-Effekt für Buttons. */
     button:hover {
         background-color: rgb(212, 100, 100);
     }
 
+    /* Entfernt Rahmen und Schatten für spezielle Formulare. */
     form.delete-all,
     form.delete-form {
         background-color: transparent;
