@@ -7,14 +7,17 @@
 
     // Berechnet den zukünftigen Wert basierend auf der Formel für Zinseszinsen.
     const calculateReturn = () => {
-        if (initialInvestment > 0 && annualReturn > 0 && years > 0) {
-            // Formel: Endkapital = Startkapital * (1 + Rendite/100) ^ Jahre.
-            finalAmount = (initialInvestment * Math.pow(1 + annualReturn / 100, years)).toFixed(2);
-        } else {
-            // Wenn eine Eingabe ungültig ist, Ergebnis auf 0 setzen.
-            finalAmount = "0";
+    if (initialInvestment > 0 && annualReturn > 0 && years > 0) {
+        let finalAmount = initialInvestment;
+        for (let i = 0; i < years; i++) {
+            finalAmount *= (1 + annualReturn / 100); // Zuwachs für jedes Jahr
         }
-    };
+        return finalAmount.toFixed(2); // Ergebnis formatieren
+    } else {
+        return "0"; // Ungültige Eingaben
+    }
+};
+
 
     // Formatiert Benutzereingaben, entfernt führende Nullen und setzt leere Felder auf 0.
     const formatInput = (event) => {
